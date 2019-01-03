@@ -30,9 +30,27 @@ export POD_NAME=$(kubectl get pods --namespace default -l "app=concourse-web" -o
 Username: concourse
 Password: concourse
 ```
+Follow the steps and log in to Concourse under http://127.0.0.1:8080.
 
-### Deploy Artifactory to kubernetes with helm
+### 2. Deploy Artifactory to kubernetes with helm
 
 ```
 helm install --name artifactory --set artifactory.image.repository=docker.bintray.io/jfrog/artifactory-oss stable/artifactory
+```
+
+#### 2.1. Acces Artifactory
+##### 2.1.1. Get the Artifactory URL by running these commands
+
+NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+         You can watch the status of the service by running 'kubectl get svc -w nginx'
+```
+export SERVICE_IP=$(kubectl get svc --namespace default nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+echo http://$SERVICE_IP/
+```
+
+##### 2.1.2. Open Artifactory in your browser
+Default credential for Artifactory:
+```
+user: admin
+password: password
 ```
