@@ -24,6 +24,13 @@ export POD_NAME=$(kubectl get pods --namespace default -l "app=concourse-web" -o
     kubectl port-forward --namespace default $POD_NAME 8080:8080
 ```
 
+Also could use this command
+
+```
+kubectl expose deployment concourse-web --type LoadBalancer \
+  --port 80 --target-port 8080
+```
+
 #### 1.2.3. Login with the following credentials
 
 ```
